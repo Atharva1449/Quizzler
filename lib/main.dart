@@ -26,21 +26,29 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   void correct() {
-     correctness.add(Icon(Icons.check,color: Colors.green,));
+    correctness.add(Icon(
+      Icons.check,
+      color: Colors.green,
+    ));
   }
 
   void wrong() {
-    correctness.add(Icon(Icons.close,color: Colors.red,));
+    correctness.add(Icon(
+      Icons.close,
+      color: Colors.red,
+    ));
   }
 
   List<String> questions = [
     'You can lead a cow down stairs but not up stairs.',
     'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.'
+    'A slug\'s blood is green.',
+    'completed',
   ];
 
   List<bool> answers = [
     false,
+    true,
     true,
     true,
   ];
@@ -90,8 +98,10 @@ class _QuizPageState extends State<QuizPage> {
                     quenum++;
                   });
                 } else {
-                  wrong();
-                  quenum++;
+                  setState(() {
+                    wrong();
+                    quenum++;
+                  });
                 }
               },
             ),
@@ -110,13 +120,13 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                if(answers[quenum] == false){
-                setState(() {
-                   correct();
+                if (answers[quenum] == false) {
+                  setState(() {
+                    correct();
                     quenum++;
-                  });}else{
+                  });
+                } else {
                   wrong();
-
                   quenum++;
                 }
 
