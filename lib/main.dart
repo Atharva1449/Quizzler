@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quizzler/question.dart';
+import 'question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -39,18 +41,25 @@ class _QuizPageState extends State<QuizPage> {
     ));
   }
 
-  List<String> questions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
-    'completed',
-  ];
-
-  List<bool> answers = [
-    false,
-    true,
-    true,
-    true,
+//  List<String> questions = [
+//    'You can lead a cow down stairs but not up stairs.',
+//    'Approximately one quarter of human bones are in the feet.',
+//    'A slug\'s blood is green.',
+//    'completed',
+//  ];
+//
+//  List<bool> answers = [
+//    false,
+//    true,
+//    true,
+//    true,
+//  ];
+  List<Question> questions = [
+    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
+    Question(
+        q: 'Approximately one quarter of human bones are in the feet', a: true),
+    Question(q: 'A slug\'s blood is green.', a: true),
+    Question(q: 'Done', a: true),
   ];
 
   List<Icon> correctness = [];
@@ -67,7 +76,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[quenum],
+                questions[quenum].textquestion,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -92,7 +101,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                if (answers[quenum] == true) {
+                if (questions[quenum].textanswer == true) {
                   setState(() {
                     correct();
                     quenum++;
@@ -103,6 +112,7 @@ class _QuizPageState extends State<QuizPage> {
                     quenum++;
                   });
                 }
+                print('$quenum tttttttttttt');
               },
             ),
           ),
@@ -120,16 +130,18 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                if (answers[quenum] == false) {
+                if (questions[quenum].textanswer == false) {
                   setState(() {
                     correct();
                     quenum++;
                   });
                 } else {
-                  wrong();
-                  quenum++;
+                  setState(() {
+                    wrong();
+                    quenum++;
+                  });
                 }
-
+                print('$quenum  fffffffffff');
                 //The user picked false.
               },
             ),
