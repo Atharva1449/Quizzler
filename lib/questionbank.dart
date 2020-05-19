@@ -1,6 +1,7 @@
 import 'question.dart';
 
 class Questionbank {
+  int _quenum = 0;
   List<Question> _questionslist = [
     Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
     Question(
@@ -8,10 +9,18 @@ class Questionbank {
     Question(q: 'A slug\'s blood is green.', a: true),
     Question(q: 'Done', a: true),
   ];
- String questions(int questionnumber){
-   return _questionslist[questionnumber].textquestion;
- }
- bool answers(int questionnumber){
-   return _questionslist[questionnumber].textanswer;
- }
+
+  void nextquestion() {
+    if (_quenum < _questionslist.length - 1) {
+      _quenum++;
+    }
+  }
+
+  String questions() {
+    return _questionslist[_quenum].textquestion;
+  }
+
+  bool answers() {
+    return _questionslist[_quenum].textanswer;
+  }
 }

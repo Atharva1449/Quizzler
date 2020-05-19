@@ -32,7 +32,6 @@ class _QuizPageState extends State<QuizPage> {
   Questionbank qbk = Questionbank();
   Marking mark = Marking();
 
-  int quenum = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                qbk.questions(quenum),
+                qbk.questions(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -70,18 +69,17 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                if (qbk.answers(quenum) == true) {
+                if (qbk.answers() == true) {
                   setState(() {
                     mark.correct();
-                    quenum++;
+                    qbk.nextquestion();
                   });
                 } else {
                   setState(() {
                     mark.wrong();
-                    quenum++;
+                    qbk.nextquestion();
                   });
                 }
-                print('$quenum tttttttttttt');
               },
             ),
           ),
@@ -99,18 +97,18 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                if (qbk.answers(quenum) == false) {
+                if (qbk.answers() == false) {
                   setState(() {
                     mark.correct();
-                    quenum++;
+                    qbk.nextquestion();
                   });
                 } else {
                   setState(() {
                     mark.wrong();
-                    quenum++;
+                    qbk.nextquestion();
                   });
                 }
-                print('$quenum  fffffffffff');
+
                 //The user picked false.
               },
             ),
