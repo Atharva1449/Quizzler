@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quizzler/question.dart';
-import 'question.dart';
+//import 'package:quizzler/question.dart';
+import 'package:quizzler/questionbank.dart';
+//import 'question.dart';
+import 'marking.dart';
 
 void main() => runApp(Quizzler());
 
@@ -27,42 +29,9 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  void correct() {
-    correctness.add(Icon(
-      Icons.check,
-      color: Colors.green,
-    ));
-  }
+  Questionbank qbk = Questionbank();
+  Marking mark = Marking();
 
-  void wrong() {
-    correctness.add(Icon(
-      Icons.close,
-      color: Colors.red,
-    ));
-  }
-
-//  List<String> questions = [
-//    'You can lead a cow down stairs but not up stairs.',
-//    'Approximately one quarter of human bones are in the feet.',
-//    'A slug\'s blood is green.',
-//    'completed',
-//  ];
-//
-//  List<bool> answers = [
-//    false,
-//    true,
-//    true,
-//    true,
-//  ];
-  List<Question> questions = [
-    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-    Question(
-        q: 'Approximately one quarter of human bones are in the feet', a: true),
-    Question(q: 'A slug\'s blood is green.', a: true),
-    Question(q: 'Done', a: true),
-  ];
-
-  List<Icon> correctness = [];
   int quenum = 0;
   @override
   Widget build(BuildContext context) {
@@ -76,7 +45,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[quenum].textquestion,
+                qbk.questions[quenum].textquestion,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -101,14 +70,14 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                if (questions[quenum].textanswer == true) {
+                if (qbk.questions[quenum].textanswer == true) {
                   setState(() {
-                    correct();
+                    mark.correct();
                     quenum++;
                   });
                 } else {
                   setState(() {
-                    wrong();
+                    mark.wrong();
                     quenum++;
                   });
                 }
@@ -130,14 +99,14 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                if (questions[quenum].textanswer == false) {
+                if (qbk.questions[quenum].textanswer == false) {
                   setState(() {
-                    correct();
+                    mark.correct();
                     quenum++;
                   });
                 } else {
                   setState(() {
-                    wrong();
+                    mark.wrong();
                     quenum++;
                   });
                 }
@@ -149,7 +118,7 @@ class _QuizPageState extends State<QuizPage> {
         ),
         //TODO: Add a Row here as your score keeper
         Row(
-          children: correctness,
+          children: mark.correctness,
         )
       ],
     );
