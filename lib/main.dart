@@ -45,7 +45,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                qbk.questions[quenum].textquestion,
+                qbk.questions(quenum),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -70,7 +70,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                if (qbk.questions[quenum].textanswer == true) {
+                if (qbk.answers(quenum) == true) {
                   setState(() {
                     mark.correct();
                     quenum++;
@@ -99,7 +99,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                if (qbk.questions[quenum].textanswer == false) {
+                if (qbk.answers(quenum) == false) {
                   setState(() {
                     mark.correct();
                     quenum++;
